@@ -87,6 +87,14 @@
 			<scope>compile</scope>
 		</dependency>
 
+		<!-- Source: https://mvnrepository.com/artifact/com.github.vladislavgoltjajev/java-isikukood -->
+		<dependency>
+			<groupId>com.github.vladislavgoltjajev</groupId>
+			<artifactId>java-isikukood</artifactId>
+			<version>2.1</version>
+			<scope>compile</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
