@@ -21,11 +21,17 @@ public class PersonService {
         if(person.getId() != null){
             throw new RuntimeException("Cannot sign up with id");
         }
+        if(person.getFirstName() != null){
+            throw new RuntimeException("Cannot sign up without first name");
+        }
+        if(person.getLastName() != null){
+            throw new RuntimeException("Cannot sign up without last name");
+        }
         if(person.getEmail() == null){
-            throw new RuntimeException("Cannot sign up with id");
+            throw new RuntimeException("Cannot sign up without email");
         }
         if(person.getPersonalCode() == null){
-            throw new RuntimeException("Cannot sign up with id");
+            throw new RuntimeException("Cannot sign up without personal code");
         }
         if(!isValid(person.getEmail())){
             throw new RuntimeException("Invalid email");

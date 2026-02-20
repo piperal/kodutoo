@@ -2,6 +2,7 @@ package ee.piperal.veebipood.controller;
 
 import ee.piperal.veebipood.entity.Product;
 import ee.piperal.veebipood.repository.ProductRepository;
+import ee.piperal.veebipood.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,9 @@ public class ProductController {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private ProductService productService;
 
     @GetMapping("products")
     public List<Product> getProducts(){
@@ -35,6 +39,7 @@ public class ProductController {
         if(product.getId()!=null){
             throw new RuntimeException("Can't add product with id already exists");
         }
+        productService.validate(product);
         productRepository.save(product);
         return productRepository.findAll();
     }
