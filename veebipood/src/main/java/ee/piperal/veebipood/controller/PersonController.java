@@ -41,12 +41,12 @@ public class PersonController {
     }
 
     @PostMapping("login")
-    public Person login(@RequestBody PersonLoginRecordDto personLoginDto){
-        Person dbperson = personRepository.findByEmail(personLoginDto.email());
+    public Person login(@RequestBody Person person){
+        Person dbperson = personRepository.findByEmail(person.getEmail());
         if(dbperson == null){
             throw new RuntimeException("Invalid email");
         }
-        if(!dbperson.getPassword().equals(personLoginDto.password())){
+        if(!dbperson.getPassword().equals(person.getPassword())){
             throw new RuntimeException("Invalid password");
         }
         return dbperson;

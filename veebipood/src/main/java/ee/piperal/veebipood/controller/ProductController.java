@@ -37,7 +37,7 @@ public class ProductController {
     @PostMapping("products/add")
     public List<Product> addProduct(@RequestBody Product product){
         if(product.getId()!=null){
-            throw new RuntimeException("Can't add product with id already exists");
+            throw new RuntimeException("Can't add product with id");
         }
         productService.validate(product);
         productRepository.save(product);

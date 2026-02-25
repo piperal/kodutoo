@@ -1,6 +1,7 @@
 package ee.piperal.veebipood.service;
 
 
+import com.github.vladislavgoltjajev.personalcode.locale.estonia.EstonianPersonalCodeValidator;
 import ee.piperal.veebipood.entity.Person;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import java.util.regex.Pattern;
 public class PersonService {
     private final String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&'*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
     private final Pattern pattern = Pattern.compile(regex);
+    private final EstonianPersonalCodeValidator validator = new EstonianPersonalCodeValidator();
 
     public boolean isValid(String email) {
         Matcher matcher = pattern.matcher(email);
@@ -21,10 +23,10 @@ public class PersonService {
         if(person.getId() != null){
             throw new RuntimeException("Cannot sign up with id");
         }
-        if(person.getFirstName() != null){
+        if(person.getFirstName() == null){
             throw new RuntimeException("Cannot sign up without first name");
         }
-        if(person.getLastName() != null){
+        if(person.getLastName() == null){
             throw new RuntimeException("Cannot sign up without last name");
         }
         if(person.getEmail() == null){
@@ -35,6 +37,9 @@ public class PersonService {
         }
         if(!isValid(person.getEmail())){
             throw new RuntimeException("Invalid email");
+        }
+        if(!validator.isValid(person.getPersonalCode())){
+            throw new RuntimeException("Invalid personal code");
         }
     }
 }

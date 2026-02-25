@@ -23,4 +23,16 @@ public class Person {
     private String password;
     @Column(unique = true) //Peab olema DB-s unikaalne
     private String personalCode;
+
+    //CascareType.REMOVE --> when Person is deleted, then so is the Address
+
+    //CascareType.PERSIST when Peron is added with new Address,
+    //                    which isn't in the DB, then it is added
+
+    //CascareType.MERGE --> When Person and Address of person is changed,
+    //                      then Person and Address is also changed
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
+    private Address address;
 }

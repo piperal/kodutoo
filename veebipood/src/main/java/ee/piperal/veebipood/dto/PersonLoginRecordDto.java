@@ -3,8 +3,7 @@ package ee.piperal.veebipood.dto;
 
 //Api endpoint for one model
 
-public record PersonLoginRecordDto(
-        String email,
-        String password
-) {
+public class PersonLoginRecordDto{
+    public String email;
+    public String password;
 }
