@@ -47,7 +47,7 @@ public class OrderService {
 
     private double calculateOrdersTotal(List<OrderRowDto> orderRows, Order order) {
         double total = 0;
-        List<OrderRow> orderRowsInOrder = new ArrayList<>();
+        List<OrderRow> orderRowsInOrder = new ArrayList<OrderRow>();
         for(OrderRowDto orderRow : orderRows){
             Product product = productRepository.findById(orderRow.getProductId()).orElseThrow();
             total += product.getPrice() * orderRow.getQuantity();
