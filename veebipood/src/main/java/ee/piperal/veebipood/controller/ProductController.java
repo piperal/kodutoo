@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+@CrossOrigin(origins = "*")
+//http://localhost:5173
 @RestController
 public class ProductController {
 
@@ -17,8 +18,8 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
-
-    @GetMapping("products")
+    @CrossOrigin(origins = "*")
+    @GetMapping("/products")
     public List<Product> getProducts(){
         return productRepository.findAll();
     }

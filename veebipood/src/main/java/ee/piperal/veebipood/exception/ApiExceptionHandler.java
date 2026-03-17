@@ -12,7 +12,7 @@ import java.util.Date;
 public class ApiExceptionHandler {
 
     @ExceptionHandler
-    public ResponseEntity<ErrorMessage> handleException(MissingServletRequestParameterException ex) {
+    public ResponseEntity<ErrorMessage> handleException(RuntimeException ex) {
         ErrorMessage errormessage = new ErrorMessage();
         errormessage.setMessage("Puudu jäi: " + ex.getMessage());
         errormessage.setStatus(HttpStatus.BAD_REQUEST.value());
