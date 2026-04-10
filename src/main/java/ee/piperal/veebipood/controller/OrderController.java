@@ -20,20 +20,20 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping("order")
-    public List<Order> getOrder(){
+    public List<Order> getOrder() {
         return OrderRepository.findAll();
     }
 
     @DeleteMapping("order/{id}")
-    public List<Order> delOrder(@PathVariable Long id){
+    public List<Order> delOrder(@PathVariable Long id) {
         OrderRepository.deleteById(id);
         return OrderRepository.findAll();
     }
 
     @PostMapping("order/add")
     public Order addOrder(@RequestParam Long personId,
-                                @RequestParam(required = false) String parcelMachine,
-                                @RequestBody List<OrderRowDto> orderRows){
+                          @RequestParam(required = false) String parcelMachine,
+                          @RequestBody List<OrderRowDto> orderRows) {
         return orderService.saveOrder(personId, parcelMachine, orderRows);
     }
 }
