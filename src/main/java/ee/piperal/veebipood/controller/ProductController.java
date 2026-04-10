@@ -30,8 +30,8 @@ public class ProductController {
         if (activeCategory == null || activeCategory == 0) {
             return productRepository.findAll(pageable);
         }
-        else {}
-        return productRepository.findAllByCategoryId(pageable, activeCategory);
+        else {        return productRepository.findAllByCategoryId(pageable, activeCategory);}
+
 
     }
 
