@@ -26,8 +26,13 @@ public class ProductController {
 
     //http://localhost:5000/products?page=1&size=1&sort=price,asc
     @GetMapping("/products")
-    public Page<@NonNull Product> getProducts(Pageable pageable) {
-        return productRepository.findAll(pageable);
+    public Page<@NonNull Product> getProducts(Pageable pageable, @RequestParam(required = false) Long activeCategory) {
+        if (activeCategory == null || activeCategory == 0) {
+            return productRepository.findAll(pageable);
+        }
+        else {}
+        return productRepository.findAllByCategoryId(pageable, activeCategory);
+
     }
 
     @GetMapping("/products/admin")
