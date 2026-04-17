@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "*")
 @RestController
 @AllArgsConstructor
 public class OrderController {
@@ -19,16 +19,19 @@ public class OrderController {
     private OrderRepository OrderRepository;
     private OrderService orderService;
 
+    @CrossOrigin(origins = "*")
     @GetMapping("order")
     public List<Order> getOrder() {
         return OrderRepository.findAll();
     }
 
+    @CrossOrigin(origins = "*")
     @DeleteMapping("order/{id}")
     public List<Order> delOrder(@PathVariable Long id) {
         OrderRepository.deleteById(id);
         return OrderRepository.findAll();
     }
+    @CrossOrigin(origins = "*")
 
     @PostMapping("order/add")
     public Order addOrder(@RequestParam Long personId,
