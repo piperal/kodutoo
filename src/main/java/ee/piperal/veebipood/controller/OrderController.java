@@ -33,7 +33,7 @@ public class OrderController {
     }
     @CrossOrigin(origins = "*")
 
-    @PostMapping("order/add")
+    @PostMapping("order")
     public Order addOrder(@RequestParam Long personId,
                           @RequestParam(required = false) String parcelMachine,
                           @RequestBody List<OrderRowDto> orderRows) {
