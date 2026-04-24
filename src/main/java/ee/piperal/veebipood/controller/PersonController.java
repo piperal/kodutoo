@@ -1,16 +1,14 @@
 package ee.piperal.veebipood.controller;
 
-import ee.piperal.veebipood.dto.PersonLoginDto;
 import ee.piperal.veebipood.dto.PersonLoginRecordDto;
 import ee.piperal.veebipood.entity.Person;
-import ee.piperal.veebipood.entity.Product;
 import ee.piperal.veebipood.repository.PersonRepository;
-import ee.piperal.veebipood.repository.ProductRepository;
 import ee.piperal.veebipood.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -28,28 +26,51 @@ public class PersonController {
         return personRepository.findAll();
     }
 
+    @GetMapping("person/{id}")
+    public Person getPersonById(@PathVariable Long id) {
+        return personRepository.findById(id).orElseThrow();
+    }
+
     @DeleteMapping("person/{id}")
     public List<Person> delPerson(@PathVariable Long id) {
         personRepository.deleteById(id);
         return personRepository.findAll();
     }
 
+
     @PostMapping("signup")
-    public Person signup(@RequestBody Person person) {
+    public Person updateProfile(@RequestBody Person person) {
+        if (person.getId() != null) {
+            throw new RuntimeException("cannot sign up with id");
+        }
         personService.validate(person);
         return personRepository.save(person);
     }
 
     @PostMapping("login")
-    public Person login(@RequestBody Person person) {
-        Person dbperson = personRepository.findByEmail(person.getEmail());
+    public Person login(@RequestBody PersonLoginRecordDto personDto) {
+        Person dbperson = personRepository.findByEmail(personDto.email);
         if (dbperson == null) {
             throw new RuntimeException("Invalid email");
         }
-        if (!dbperson.getPassword().equals(person.getPassword())) {
+        if (!dbperson.getPassword().equals(personDto.password)) {
             throw new RuntimeException("Invalid password");
         }
         return dbperson;
+    }
+
+    @PutMapping("profile")
+    public Person signup(@RequestBody Person person) { // TODO: PersonsignupDTO (without address)
+        if (person.getId() == null) {
+            throw new RuntimeException("id not provided, cannot update profile");
+        }
+        personService.validate(person);
+        return personRepository.save(person);
+    }
+
+    @GetMapping("profile")
+    public Person getProfile(@RequestParam Long id) {
+        return personRepository.findById(id).orElseThrow();
     }
 
 }

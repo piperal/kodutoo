@@ -20,6 +20,8 @@ public class PersonService {
     }
 
     public void validate(Person person){
+
+        //Should not be visible by user, for Front end devs only
         if(person.getId() != null){
             throw new RuntimeException("Cannot sign up with id");
         }
